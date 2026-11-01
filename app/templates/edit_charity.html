@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Charity
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="text-center my-4">
+        Edit Charity
+    </h2>
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card shadow p-4">
+
+                <form method="POST">
+
+                    {{ form.hidden_tag() }}
+
+                    <div class="mb-3">
+                        {{ form.name.label(class="form-label") }}
+                        {{ form.name(class="form-control") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.description.label(class="form-label") }}
+                        {{ form.description(class="form-control", rows="5") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.category.label(class="form-label") }}
+                        {{ form.category(class="form-control") }}
+                    </div>
+
+                    <div class="text-center">
+
+                        {{ form.submit(
+                            class="btn btn-primary",
+                            value="Update Charity"
+                        ) }}
+
+                        <a href="{{ url_for('main.admin_dashboard') }}"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

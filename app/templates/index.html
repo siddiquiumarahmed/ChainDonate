@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<div class="hero">
+
+    <h1>ChainDonate</h1>
+
+    <p class="mt-3">
+        A Blockchain-Based Charity Donation Tracking Platform
+        <br>
+        Every donation is transparent, secure and verifiable.
+    </p>
+
+    <div class="mt-4">
+
+        <a href="{{ url_for('main.charities') }}" class="btn btn-light btn-lg">
+            Donate Now
+        </a>
+
+        <a href="{{ url_for('main.charities') }}" class="btn btn-outline-light btn-lg ms-2">
+            Explore Charities
+        </a>
+
+    </div>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="row text-center mt-5 g-4">
+
+    <div class="col-md-3">
+        <div class="card stats-card p-4">
+            <h2>{{ total_donations }}</h2>
+            <p>Total Donations</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card stats-card p-4">
+            <h2>{{ total_charities }}</h2>
+            <p>Verified NGOs</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card stats-card p-4">
+            <h2>{{ total_users }}</h2>
+            <p>Registered Donors</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card stats-card p-4">
+            <h2>{{ total_transactions }}</h2>
+            <p>Blockchain Transactions</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- Featured Charities -->
+
+<hr class="my-5">
+
+<h2 class="text-center fw-bold mb-5">
+    Featured Charities
+</h2>
+
+<div class="row g-4">
+
+    {% for charity in charities %}
+
+    <div class="col-md-4">
+
+        <div class="card border-0 shadow-lg h-100">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-heart-pulse-fill text-danger display-3"></i>
+
+                <h4 class="mt-3">
+                    {{ charity.name }}
+                </h4>
+
+                <p>
+                    {{ charity.description }}
+                </p>
+
+                <span class="badge bg-primary mb-3">
+                    {{ charity.category }}
+                </span>
+
+                <br>
+
+                <a href="{{ url_for('main.donate', charity_id=charity.id) }}"
+                   class="btn btn-primary mt-3">
+                    Donate
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<!-- How It Works -->
+
+<hr class="my-5">
+
+<h2 class="text-center fw-bold">
+    How ChainDonate Works
+</h2>
+
+<div class="row text-center mt-5">
+
+    <div class="col-md-4">
+
+        <i class="bi bi-person-plus-fill display-1 text-primary"></i>
+
+        <h4 class="mt-3">
+            1. Register
+        </h4>
+
+        <p>
+            Create your donor account.
+        </p>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <i class="bi bi-cash-stack display-1 text-success"></i>
+
+        <h4 class="mt-3">
+            2. Donate
+        </h4>
+
+        <p>
+            Donate securely to a verified NGO.
+        </p>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <i class="bi bi-search display-1 text-warning"></i>
+
+        <h4 class="mt-3">
+            3. Track
+        </h4>
+
+        <p>
+            View your donation status and blockchain record.
+        </p>
+
+    </div>
+
+</div>
+
+<!-- Recent Donations -->
+
+<hr class="my-5">
+
+<h2 class="text-center fw-bold mb-4">
+    Recent Donations
+</h2>
+
+<div class="card shadow-lg border-0">
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+
+                    <tr>
+                        <th>Donor</th>
+                        <th>Charity</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for donation in recent_donations %}
+
+                    <tr>
+                        <td>{{ donation.user.name }}</td>
+                        <td>{{ donation.charity.name }}</td>
+                        <td>₹{{ "%.2f"|format(donation.amount) }}</td>
+                        <td>{{ donation.donation_date.strftime("%d-%m-%Y") }}</td>
+                        <td>
+                            <span class="badge bg-success">
+                                {{ donation.status }}
+                            </span>
+                        </td>
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            No donations yet.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Footer -->
+
+<footer class="text-center mt-5 py-4">
+
+    <h5>ChainDonate</h5>
+
+    <p class="mb-1">
+        Blockchain-Based Charity Donation Tracking System
+    </p>
+
+    <small>
+        © 2026 ChainDonate. All Rights Reserved.
+    </small>
+
+</footer>
+
+{% endblock %}

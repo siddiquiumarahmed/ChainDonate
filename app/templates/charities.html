@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+Charities
+{% endblock %}
+
+{% block content %}
+
+<h2 class="text-center fw-bold my-5">
+    Our Verified Charities
+</h2>
+
+<div class="row g-4">
+
+    {% for charity in charities %}
+
+    <div class="col-md-4">
+
+        <div class="card h-100 shadow">
+
+            <div class="card-body text-center">
+
+                <h4>{{ charity.name }}</h4>
+
+                <p>{{ charity.description }}</p>
+
+                <span class="badge bg-primary">
+                    {{ charity.category }}
+                </span>
+
+                <div class="mt-3">
+                    <a href="{{ url_for('main.donate', charity_id=charity.id) }}"
+                       class="btn btn-success">
+                        Donate
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
